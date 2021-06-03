@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="node_modules/tone/build/Tone.js"></script>
+    <title>Document</title>
+    <style>
+        #canvas {
+            display: block;
+            background-color: #ffeeff;
+        }
+
+        img {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <button id="start-button">Start</button>
+    <canvas id="canvas" width=800 height=600></canvas>
+    <!-- piece images -->
+    <img id="1_1" src="piece_images/1_1.png">
+    <img id="1_2" src="piece_images/1_2.png">
+    <img id="1_3" src="piece_images/1_3.png">
+    <img id="1_4" src="piece_images/1_4.png">
+    <script src="main.js"></script>
+</body>
+</html>
