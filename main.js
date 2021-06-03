@@ -12,7 +12,7 @@ const testSampler = new Tone.Sampler({
         "C4": "piano-c.mp3",
     },
     release: 1,
-    baseUrl: "/samples/",
+    baseUrl: "samples/",
 }).toDestination();
 
 Tone.loaded().then(() => {
