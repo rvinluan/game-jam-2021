@@ -111,7 +111,7 @@ function init() {
         p.img = img;
         p.imgWidth = img.offsetWidth;
         p.imgHeight = img.offsetHeight;
-        var ply = new Tone.Player("/samples/1_"+(i+1)+".mp3").toDestination();
+        var ply = new Tone.Player("samples/1_"+(i+1)+".mp3").toDestination();
         p.player = ply;
         allPieces.push(p);
     }
