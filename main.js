@@ -65,7 +65,7 @@ document.querySelector("#listen")?.addEventListener('click', () => {
     Tone.Transport.scheduleOnce( (time) => {
         console.log("checking...");
         if(checkWin()) {
-            alert("you win!");
+            document.querySelector("#congrats-"+currentLevel).classList.add("shown");
         }
     }, st + placedPieces[placedPieces.length - 1].player.buffer.duration);
     Tone.Transport.stop();
@@ -127,6 +127,7 @@ Piece.prototype.addToAnswer = function() {
 }
 
 var levelData = [4, 5, 5, 7];
+var currentLevel = 1;
 var allPieces = [];
 var placedPieces = [];
 var selectedPiece;
@@ -210,6 +211,7 @@ canvas.addEventListener("dblclick", function(e) {
 })
 
 function init(whichLevel) {
+    currentLevel = whichLevel;
     allPieces = [];
     placedPieces = [];
     for (var i = 0; i < levelData[whichLevel - 1]; i++) {

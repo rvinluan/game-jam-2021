@@ -191,3 +191,48 @@ button {
   display: flex;
   justify-content: center;
 }
+
+.congrats {
+  display: none;
+  width: 900px;
+  height: 600px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #FFF8E5;
+  padding: 20px;
+  font-family: nyt-cheltenham;
+}
+
+.congrats.shown {
+  display: block;
+}
+
+.page-content-meta {
+  margin: 10px;
+  margin-bottom: 0;
+}
+
+.page-content-songname {
+  font-size: 50px;
+  margin: 20px;
+}
+
+.page-content-from {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.page-content-artist {
+  font-size: 25px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.page-content-year {
+  font-weight: Bold;
+}
+
+
+
