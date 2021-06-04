@@ -13,6 +13,12 @@ document.querySelector('#start-button-2')?.addEventListener('click', async () =>
     mainloop();
 })
 
+document.querySelector('#start-button-3')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(3);
+    mainloop();
+})
+
 document.querySelector("#listen")?.addEventListener('click', () => {
     var st = 0;
     placedPieces.forEach((e, i) => {
@@ -152,7 +158,7 @@ canvas.addEventListener("dblclick", function(e) {
 })
 
 function init(whichLevel) {
-    levelData = [4,5];
+    levelData = [4,5,5];
     allPieces = [];
     placedPieces = [];
     for (var i = 0; i < levelData[whichLevel - 1]; i++) {
