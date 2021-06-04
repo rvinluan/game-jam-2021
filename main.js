@@ -25,6 +25,32 @@ document.querySelector('#start-button-4')?.addEventListener('click', async () =>
     mainloop();
 })
 
+// Start Button Group
+
+document.querySelector('#group-start-button-1')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(1);
+    mainloop();
+})
+
+document.querySelector('#group-start-button-2')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(2);
+    mainloop();
+})
+
+document.querySelector('#group-start-button-3')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(3);
+    mainloop();
+})
+
+document.querySelector('#group-start-button-4')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(4);
+    mainloop();
+})
+
 document.querySelector("#listen")?.addEventListener('click', () => {
     var st = 0;
     placedPieces.forEach((e, i) => {
@@ -33,10 +59,15 @@ document.querySelector("#listen")?.addEventListener('click', () => {
             st -= 0.05;
         }
         Tone.Transport.scheduleOnce( (time) => {
-            console.log(e);
             e.player.start();
         } , st)
     })
+    Tone.Transport.scheduleOnce( (time) => {
+        console.log("checking...");
+        if(checkWin()) {
+            document.querySelector("#congrats-"+currentLevel).classList.add("shown");
+        }
+    }, st + placedPieces[placedPieces.length - 1].player.buffer.duration);
     Tone.Transport.stop();
     Tone.Transport.start();
 })
@@ -56,6 +87,7 @@ function Piece() {
     var x,
         y,
         z,
+        id,
         imgData,
         imgWidth,
         imgHeight,
@@ -94,6 +126,8 @@ Piece.prototype.addToAnswer = function() {
     this.x = totalWidth;
 }
 
+var levelData = [4, 5, 5, 7];
+var currentLevel = 1;
 var allPieces = [];
 var placedPieces = [];
 var selectedPiece;
@@ -129,6 +163,20 @@ function removeFromArray(array, piece) {
     }
 }
 
+function checkWin() {
+    var isWin = true;
+    placedPieces.forEach( (e, i) => {
+        console.log(e);
+        if (e.id !== i) {
+            isWin = false;
+        };
+    });
+    if (placedPieces.length < allPieces.length) {
+        isWin = false;
+    }
+    return isWin;
+}
+
 canvas.addEventListener("mousedown", function(e){
     mouseX = e.offsetX;
     mouseY = e.offsetY;
@@ -159,12 +207,11 @@ canvas.addEventListener("mouseup", function (e) {
 
 canvas.addEventListener("dblclick", function(e) {
     var selected = getTopPiece(e.offsetX, e.offsetY);
-    console.log(selected);
     selected.playNotes();
 })
 
 function init(whichLevel) {
-    levelData = [4,5,5,7];
+    currentLevel = whichLevel;
     allPieces = [];
     placedPieces = [];
     for (var i = 0; i < levelData[whichLevel - 1]; i++) {
@@ -173,6 +220,7 @@ function init(whichLevel) {
         p.x = Math.round(Math.random() * 200);
         p.y = Math.round(300 + Math.random() * 100);
         p.z = i;
+        p.id = i;
         p.img = img;
         p.imgWidth = img.offsetWidth;
         p.imgHeight = img.offsetHeight;
@@ -183,6 +231,12 @@ function init(whichLevel) {
 }
 
 function mainloop() {
+    var all = document.getElementsByClassName('page')
+
+    Array.from(all).forEach((ele) => {
+      ele.style.display = 'none'
+    })
+
     ctx.fillStyle = "#ffeeff";
     ctx.fillRect(0,0,900,1000);
     ctx.fillStyle = "#000000";
