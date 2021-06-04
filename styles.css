@@ -6,6 +6,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'nyt-cheltenham';
+  src: url('./fonts/cheltenham-normal-500.woff2') format('woff2'),
+    url('./fonts/cheltenham-normal-500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -53,4 +61,133 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+/* Main Styles */
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  margin: 0 auto;
+}
+
+.page {
+  width: 900px;
+  height: 600px;
+  position: absolute;
+  background-color: orange;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: #FFF8E5;
+  padding: 20px;
+}
+
+.borders {
+  border: solid 1px black;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.borders:before {
+  content: '';
+  width: calc(100% - 10px);
+  height: calc(100% - 12px);
+  top: 4px;
+  left: 3px;
+  position: absolute;
+  border: solid 2px black;
+}
+
+.borders:after {
+  content: '';
+  width: calc(100% - 20px);
+  height: calc(100% - 22px);
+  top: 10px;
+  left: 9px;
+  position: absolute;
+  border: solid 1px black;
+}
+
+.page-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+}
+
+.page-content-subtitle {
+  font-family: "nyt-cheltenham";
+  margin-top: 20px;
+}
+
+.page-content-title {
+  font-family: "nyt-karnakcondensed";
+  font-size: 100px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.page-content-rule {
+  width: 175px;
+  border: solid 1px black;
+  margin-top: 50px;
+}
+
+.page-content-directions + .page-content-rule {
+  margin-top: 30px;
+}
+
+.page-content-directions {
+  font-family: "nyt-cheltenham";
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+button {
+  min-width: 240px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-family: "nyt-cheltenham";
+  border: 0;
+  font-size: 24px;
+  line-height: 30px;
+  margin-top: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.button-group button {
+  padding: 0;
+  font-size: 16px;
+  min-width: 100px;
+  margin-right: 10px;
+  margin-top: 30px;
+}
+
+#game-container {
+  position: relative;
+  width: 900px;
+  height: 600px;
+  margin: auto;
+}
+
+.button-group {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

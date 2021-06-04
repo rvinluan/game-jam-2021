@@ -25,6 +25,32 @@ document.querySelector('#start-button-4')?.addEventListener('click', async () =>
     mainloop();
 })
 
+// Start Button Group
+
+document.querySelector('#group-start-button-1')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(1);
+    mainloop();
+})
+
+document.querySelector('#group-start-button-2')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(2);
+    mainloop();
+})
+
+document.querySelector('#group-start-button-3')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(3);
+    mainloop();
+})
+
+document.querySelector('#group-start-button-4')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(4);
+    mainloop();
+})
+
 document.querySelector("#listen")?.addEventListener('click', () => {
     var st = 0;
     placedPieces.forEach((e, i) => {
@@ -183,6 +209,12 @@ function init(whichLevel) {
 }
 
 function mainloop() {
+    var all = document.getElementsByClassName('page')
+
+    Array.from(all).forEach((ele) => {
+      ele.style.display = 'none'
+    })
+
     ctx.fillStyle = "#ffeeff";
     ctx.fillRect(0,0,900,1000);
     ctx.fillStyle = "#000000";

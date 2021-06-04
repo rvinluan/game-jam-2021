@@ -20,39 +20,55 @@
     </style>
 </head>
 <body>
-    <div class="button-group">
-        <button id="start-button-1">Level 1</button>
-        <button id="start-button-2">Level 2</button>
-        <button id="start-button-3">Level 3</button>
-        <button id="start-button-4">Level 4</button>
-        <button id="listen">Listen</button>
+    <div id="game-container">
+      <div class="button-group">
+          <button id="group-start-button-1">Level 1</button>
+          <button id="group-start-button-2">Level 2</button>
+          <button id="group-start-button-3">Level 3</button>
+          <button id="group-start-button-4">Level 4</button>
+          <button id="listen">Listen</button>
+      </div>
+      <div class="page" id="page-one">
+        <div class="borders"></div>
+        <div class="page-content">
+          <p>🎵</p>
+          <p class="page-content-subtitle">A New York Times Game<p>
+          <h1 class="page-content-title">Jigsong</h1>
+          <hr class="page-content-rule"/>
+          <p class="page-content-directions">Drag the puzzle pieces onto the staff to complete the song.</p>
+          <p class="page-content-directions"> Double click a puzzle piece to hear it.</p>
+          <p class="page-content-directions">Use the ‘Listen’ button to play though your answer in order.</p>
+          <hr class="page-content-rule"/>
+          <button id="start-button-1">Begin</button>
+        </div>
+      </div>
+      <canvas id="canvas" width=900 height=600></canvas>
+      <!-- piece images -->
+      <img id="1_1" src="piece_images/1_1.png">
+      <img id="1_2" src="piece_images/1_2.png">
+      <img id="1_3" src="piece_images/1_3.png">
+      <img id="1_4" src="piece_images/1_4.png">
+
+      <img id="2_1" src="piece_images/2_1.png">
+      <img id="2_2" src="piece_images/2_2.png">
+      <img id="2_3" src="piece_images/2_3.png">
+      <img id="2_4" src="piece_images/2_4.png">
+      <img id="2_5" src="piece_images/2_5.png">
+
+      <img id="3_1" src="piece_images/3_1.png">
+      <img id="3_2" src="piece_images/3_2.png">
+      <img id="3_3" src="piece_images/3_3.png">
+      <img id="3_4" src="piece_images/3_4.png">
+      <img id="3_5" src="piece_images/3_5.png">
+
+      <img id="4_1" src="piece_images/4_1.png">
+      <img id="4_2" src="piece_images/4_2.png">
+      <img id="4_3" src="piece_images/4_3.png">
+      <img id="4_4" src="piece_images/4_4.png">
+      <img id="4_5" src="piece_images/4_5.png">
+      <img id="4_6" src="piece_images/4_6.png">
+      <img id="4_7" src="piece_images/4_7.png">
+      <script src="main.js"></script>
     </div>
-    <canvas id="canvas" width=900 height=600></canvas>
-    <!-- piece images -->
-    <img id="1_1" src="piece_images/1_1.png">
-    <img id="1_2" src="piece_images/1_2.png">
-    <img id="1_3" src="piece_images/1_3.png">
-    <img id="1_4" src="piece_images/1_4.png">
-
-    <img id="2_1" src="piece_images/2_1.png">
-    <img id="2_2" src="piece_images/2_2.png">
-    <img id="2_3" src="piece_images/2_3.png">
-    <img id="2_4" src="piece_images/2_4.png">
-    <img id="2_5" src="piece_images/2_5.png">
-
-    <img id="3_1" src="piece_images/3_1.png">
-    <img id="3_2" src="piece_images/3_2.png">
-    <img id="3_3" src="piece_images/3_3.png">
-    <img id="3_4" src="piece_images/3_4.png">
-    <img id="3_5" src="piece_images/3_5.png">
-
-    <img id="4_1" src="piece_images/4_1.png">
-    <img id="4_2" src="piece_images/4_2.png">
-    <img id="4_3" src="piece_images/4_3.png">
-    <img id="4_4" src="piece_images/4_4.png">
-    <img id="4_5" src="piece_images/4_5.png">
-    <img id="4_6" src="piece_images/4_6.png">
-    <img id="4_7" src="piece_images/4_7.png">
-    <script src="main.js"></script>
 </body>
 </html>
