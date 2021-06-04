@@ -3,8 +3,24 @@ let ctx = canvas.getContext("2d");
 
 document.querySelector('#start-button')?.addEventListener('click', async () => {
     await Tone.start();
-    init();
+    init(2);
     mainloop();
+})
+
+document.querySelector("#listen")?.addEventListener('click', () => {
+    var st = 0;
+    placedPieces.forEach((e, i) => {
+        if(i > 0) {
+            st += placedPieces[i-1].player.buffer.duration;
+            st -= 0.05;
+        }
+        Tone.Transport.scheduleOnce( (time) => {
+            console.log(e);
+            e.player.start();
+        } , st)
+    })
+    Tone.Transport.stop();
+    Tone.Transport.start();
 })
 
 const testSampler = new Tone.Sampler({
@@ -48,8 +64,24 @@ Piece.prototype.playNotes = function() {
     this.player.start();
 }
 
+Piece.prototype.addToAnswer = function() {
+    var totalWidth;
+    if(placedPieces.length >= 1) {
+        totalWidth = placedPieces.reduce((v, i) => v += i.imgWidth, 0);
+    } else {
+        totalWidth = 0;
+    }
+    placedPieces.push(this);
+    this.y = answerArea - answerAreaOffset;
+    this.x = totalWidth;
+}
+
 var allPieces = [];
+var placedPieces = [];
+var selectedPiece;
 var mouseX, mouseY;
+const answerArea = 200;
+const answerAreaOffset = 50;
 
 function getTopPiece(x, y) {
     dragCandidates = [];
@@ -64,18 +96,25 @@ function getTopPiece(x, y) {
         dragCandidates.sort((a, b) => a.z - b.z);
         return dragCandidates.pop();
     } else {
-        var selectedPiece = dragCandidates[0];
+        var sel = dragCandidates[0];
         //make selected piece have z+1 of the highest z
         var zSorted = [...allPieces].sort((a, b) => a.z - b.z);
-        selectedPiece.z = zSorted.pop().z + 1;
-        return selectedPiece;
+        sel.z = zSorted.pop().z + 1;
+        return sel;
+    }
+}
+
+function removeFromArray(array, piece) {
+    let i = array.indexOf(piece);
+    if(i > -1) {
+        array.splice(i,1);
     }
 }
 
 canvas.addEventListener("mousedown", function(e){
     mouseX = e.offsetX;
     mouseY = e.offsetY;
-    var selectedPiece = getTopPiece(e.offsetX, e.offsetY);
+    selectedPiece = getTopPiece(e.offsetX, e.offsetY);
     if(selectedPiece == null) {
         return;
     }
@@ -90,9 +129,14 @@ canvas.addEventListener("mousemove", function(e){
 })
 
 canvas.addEventListener("mouseup", function (e) {
-    allPieces.forEach(i => {
-        i.isBeingDragged = false;
-    });
+    selectedPiece.isBeingDragged = false;
+    if(e.offsetY > answerArea - answerAreaOffset && e.offsetY < answerArea + answerAreaOffset) {
+        if(placedPieces.indexOf(selectedPiece) == -1) {
+            selectedPiece.addToAnswer();
+        }
+    } else {
+        removeFromArray(placedPieces, selectedPiece);
+    }
 })
 
 canvas.addEventListener("dblclick", function(e) {
@@ -101,17 +145,20 @@ canvas.addEventListener("dblclick", function(e) {
     selected.playNotes();
 })
 
-function init() {
-    for (var i = 0; i < 4; i++) {
+function init(whichLevel) {
+    levelData = [4,5];
+    allPieces = [];
+    placedPieces = [];
+    for (var i = 0; i < levelData[whichLevel - 1]; i++) {
         var p = new Piece();
-        var img = document.getElementById("1_" + (i + 1));
+        var img = document.getElementById(whichLevel+"_" + (i + 1));
         p.x = Math.round(Math.random() * 200);
-        p.y = Math.round(Math.random() * 250);
+        p.y = Math.round(300 + Math.random() * 100);
         p.z = i;
         p.img = img;
         p.imgWidth = img.offsetWidth;
         p.imgHeight = img.offsetHeight;
-        var ply = new Tone.Player("samples/1_"+(i+1)+".mp3").toDestination();
+        var ply = new Tone.Player("samples/"+whichLevel+"_"+(i+1)+".mp3").toDestination();
         p.player = ply;
         allPieces.push(p);
     }
@@ -119,7 +166,11 @@ function init() {
 
 function mainloop() {
     ctx.fillStyle = "#ffeeff";
-    ctx.fillRect(0,0,800,1000);
+    ctx.fillRect(0,0,900,1000);
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0,answerArea,900,5);
+    ctx.fillRect(0,answerArea-answerAreaOffset,900,1);
+    ctx.fillRect(0,answerArea+answerAreaOffset,900,1);
     allPieces.sort((a,b) => a.z - b.z);
     allPieces.forEach(i => {
         i.draw();
@@ -127,5 +178,10 @@ function mainloop() {
             i.updatePosition(mouseX, mouseY);
         }
     });
+    var widthSoFar = 0;
+    placedPieces.forEach(i => {
+        i.x = widthSoFar;
+        widthSoFar += i.imgWidth;
+    })
     requestAnimationFrame(mainloop);
 }
