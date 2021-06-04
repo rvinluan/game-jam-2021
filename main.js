@@ -1,7 +1,13 @@
 let canvas = document.querySelector("#canvas");
 let ctx = canvas.getContext("2d");
 
-document.querySelector('#start-button')?.addEventListener('click', async () => {
+document.querySelector('#start-button-1')?.addEventListener('click', async () => {
+    await Tone.start();
+    init(1);
+    mainloop();
+})
+
+document.querySelector('#start-button-2')?.addEventListener('click', async () => {
     await Tone.start();
     init(2);
     mainloop();
